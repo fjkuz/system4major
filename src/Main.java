@@ -1,13 +1,31 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-  //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-  // to see how IntelliJ IDEA suggests fixing it.
-  IO.println(String.format("Hello and welcome!"));
-
-  for (int i = 1; i <= 5; i++) {
-    //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-    // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-    IO.println("i = " + i);
-  }
+public static int findMajor(int[]array){
+    int candidate =0;//возможный мажоритарный элемент
+    int count=0;//счетчик
+    for(int i:array){//первый проход
+        if(count==0){//если счетчик равен 0, выбираем текущ элемент кандидатом
+            candidate =i;
+            count=1;
+        }
+        else if(i== candidate){//если текущ i равен текущ мажоритарному числу - счетчик+1
+            count++;
+        }
+        else{//если текущ i не равен текущ мажоритарному числу - счетчик-1
+            count--;
+        }
+    }
+    count=0;//сброс счетчика
+    for (int i : array) {//второй проход проверка
+        if (i == candidate) { //если текущ i равен текущ мажоритарнному числу - счетчик+1
+            count++;
+        }
+    }
+    if(count>array.length/2){ //проверяем: если счетчик насчитал хотя бы половину одинаковых чисел в массиве, то это число обьявляется мажоритарным и возвращается как результат поиска
+        return candidate;
+    }
+    return -1;//если в массиве таких чисел не оказалось - возвращаем -1
+}
+void main(){
+    int[]array={2,1,2,3,4,2,1,2,2};//исходный массив
+    int res=findMajor(array);
+    System.out.println(res);
 }
